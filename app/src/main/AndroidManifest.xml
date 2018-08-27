@@ -24,6 +24,7 @@
         <activity
             android:name=".PlayerActivity"
             android:label="@string/title_activity_player"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

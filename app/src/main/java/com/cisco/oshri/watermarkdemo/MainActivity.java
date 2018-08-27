@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cisco.oshri.watermarkdemo.data.HttpTools;
 import com.cisco.oshri.watermarkdemo.data.SettingsData;
 
 import java.io.File;
@@ -31,6 +32,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button playButton;
     TextView userTextView;
     TextView signOutTextView;
+boolean threadRun = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+threadRun = true;
+        new Thread()
+        {
+            @Override
+            public void run() {
+                try {
+                    String response = HttpTools.GET(getValue(AUTO_PLAY_URL)+getValue(USER));
+
+                    while(response.compareTo("watch") != 0  && threadRun == true)
+                    {
+                        sleep(3000);
+                        response = HttpTools.GET(getValue(AUTO_PLAY_URL)+getValue(USER));
+                    }
+
+                    if(response.compareTo("watch")==0)
+                        openPlayer();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String catalog = getValue(CATALOG_URL);
         if(catalog ==null)
-
             startActivityForResult(new Intent(this, SignInActivity.class),REQ_SIGNIN_CODE);
         else
             viewCatalog();
@@ -70,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signOutTextView.setOnClickListener(this);
 
         this.userTextView.setBackground(getUserColor());
+        this.userTextView.setText(getValue(USER));
+        this.playButton.setEnabled(true);
+
+
+
     }
 
     @Override
@@ -82,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openPlayer() {
+        threadRun = false;
         startActivity(new Intent(this, PlayerActivity.class));
     }
 
@@ -90,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SettingsData.setValue(USER, null);
         SettingsData.setValue(CATALOG_URL, null);
-
+        threadRun = false;
         startActivityForResult(new Intent(this, SignInActivity.class), REQ_SIGNIN_CODE);
     }
 }

@@ -54,7 +54,6 @@ public class PlayerActivity extends AppCompatActivity
 
     final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 10;
 
-
     private PlayerView playerView;
     private SimpleExoPlayer player;
     private TextView userNameTextView;
@@ -64,20 +63,25 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
 
         // remove title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        setContentView(R.layout.activity_player);
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         playerView = findViewById(R.id.player_view);
+        userNameTextView = findViewById(R.id.userNameTextView);
+        userNameTextView.setText(getValue(USER));
+
 
         initExoPlayer(this, getValue(CATALOG_URL));
-        userNameTextView.setBackground(getUserColor());
+        new sessionAsync().execute(getValue(START_SESSIONS_URL) + getValue(USER));
+       userNameTextView.setBackground(getUserColor());
     }
 
     @Override
@@ -189,17 +193,44 @@ public class PlayerActivity extends AppCompatActivity
 
     private File getLastFile() {
         String path = Environment.getExternalStorageDirectory().toString();
-        path+= "/DCIM/Camera";
+
+
+        path= getValue(RECORDING_FOLDER);
 
         Log.d("Files", "Path: " + path);
         File directory = new File(path);
         File[] files = directory.listFiles();
         Log.d("Files", "Size: " + files.length);
 
-        for (int i = 0; i < files.length; i++) {
-            Date lastModDate = new Date(files[i].lastModified());
-            Log.d("Files", "FileName:" + files[i].getName() + " [" + lastModDate + "]");
+
+
+        if(files.length>0)
+        {
+            File lastFile = files[0];
+            long lastDate = files[0].lastModified();
+
+            for (int i = 0; i < files.length; i++) {
+                long lastModified = files[i].lastModified();
+                if(lastDate<lastModified)
+                {
+                    lastDate = lastModified;
+                    lastFile = files[i];
+                }
+            }
+
+            final File finalLastFile = lastFile;
+            new AsyncTask<Void,Void,Void>()
+            {
+
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    HttpTools.uploadFileToServer(getValue(UPLOAD_URL)+ finalLastFile.getName()  , finalLastFile,finalLastFile.getName());
+                    return null;
+                }
+            }   .execute();
         }
+
+
 
         return null;
     }

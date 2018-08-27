@@ -81,7 +81,12 @@ public class SignInActivity extends AppCompatActivity {
                 postData.put("uname", user);
                 postData.put("pwd", user);
 
-                urlResult = HttpTools.PostJson(CONTROL_PLAN_URL, postData);
+                urlResult = HttpTools.PostJson(getValue(CONTROL_PLAN_URL), postData);
+                if (urlResult.startsWith("http://") || urlResult.startsWith("https://") )
+                {
+                    setValue(CATALOG_URL, urlResult);
+                    setValue(USER,user);
+                }
 
 
             } catch (Exception e) {
