@@ -26,6 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select User"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeStepGranularity="2sp"
             android:textSize="24sp" />
 
         <ListView

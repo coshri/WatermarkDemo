@@ -76,7 +76,10 @@ public class PlayerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         playerView = findViewById(R.id.player_view);
         userNameTextView = findViewById(R.id.userNameTextView);
-        userNameTextView.setText(getValue(USER));
+
+        if (getValue(Enable_Get_id).toUpperCase() == "TRUE")
+        userNameTextView.setText(getValue(UID));
+
 
 
         initExoPlayer(this, getValue(CATALOG_URL));

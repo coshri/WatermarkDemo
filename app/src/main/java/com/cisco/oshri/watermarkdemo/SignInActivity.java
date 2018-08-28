@@ -54,9 +54,13 @@ public class SignInActivity extends AppCompatActivity {
                 new signInAsync().execute(user);
             }
         });
-
-
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
+
     class signInAsync extends AsyncTask<String, Integer, String> {
 
         String user = null;
@@ -87,6 +91,9 @@ public class SignInActivity extends AppCompatActivity {
                     setValue(CATALOG_URL, urlResult);
                     setValue(USER,user);
                 }
+
+                String uidResult = HttpTools.GET(getValue(GET_ID_URL)+user);
+                setValue(UID,uidResult);
 
 
             } catch (Exception e) {

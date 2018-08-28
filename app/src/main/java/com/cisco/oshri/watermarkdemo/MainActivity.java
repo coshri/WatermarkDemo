@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cisco.oshri.watermarkdemo.data.HttpTools;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final int REQ_SIGNIN_CODE = 101;
 
 
-    Button playButton;
+    ImageButton playButton;
     TextView userTextView;
     TextView signOutTextView;
 boolean threadRun = false;
@@ -37,29 +38,30 @@ boolean threadRun = false;
     @Override
     protected void onStart() {
         super.onStart();
-threadRun = true;
-        new Thread()
-        {
-            @Override
-            public void run() {
-                try {
-                    String response = HttpTools.GET(getValue(AUTO_PLAY_URL)+getValue(USER));
 
-                    while(response.compareTo("watch") != 0  && threadRun == true)
-                    {
-                        sleep(3000);
-                        response = HttpTools.GET(getValue(AUTO_PLAY_URL)+getValue(USER));
+        if (getValue(Enable_AUTO_PLAY).toUpperCase() == "TRUE") {
+            threadRun = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        String response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
+
+                        while (response.compareTo("watch") != 0 && threadRun == true) {
+                            sleep(3000);
+                            response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
+                        }
+
+                        if (response.compareTo("watch") == 0)
+                            openPlayer();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
-                    if(response.compareTo("watch")==0)
-                        openPlayer();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-
-            }
-        }.start();
+            }.start();
+        }
     }
 
     @Override
@@ -99,7 +101,10 @@ threadRun = true;
         signOutTextView.setOnClickListener(this);
 
         this.userTextView.setBackground(getUserColor());
-        this.userTextView.setText(getValue(USER));
+
+        if (getValue(Enable_Get_id).toUpperCase() == "TRUE")
+        this.userTextView.setText(getValue(UID));
+
         this.playButton.setEnabled(true);
 
 
