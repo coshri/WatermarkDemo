@@ -33,11 +33,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton playButton;
     TextView userTextView;
     TextView signOutTextView;
-boolean threadRun = false;
+    boolean threadRun = false;
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        if(getValue(USER) != null)
+        {
+            if (getValue(Enable_Get_id).toUpperCase().compareTo("TRUE") == 0)
+                this.userTextView.setText(getValue(UID));
+            else
+                this.userTextView.setText(null);
+        }
 
         if (getValue(Enable_AUTO_PLAY).toUpperCase() == "TRUE") {
             threadRun = true;
@@ -68,14 +76,14 @@ boolean threadRun = false;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SettingsData.loadSharedPreferences( this.getSharedPreferences("com.cisco.oshri.watermarkdemo", Context.MODE_PRIVATE));
+        SettingsData.loadSharedPreferences(this.getSharedPreferences("com.cisco.oshri.watermarkdemo", Context.MODE_PRIVATE));
 
         String catalog = getValue(CATALOG_URL);
-        if(catalog ==null)
-            startActivityForResult(new Intent(this, SignInActivity.class),REQ_SIGNIN_CODE);
+        if (catalog == null)
+            startActivityForResult(new Intent(this, SignInActivity.class), REQ_SIGNIN_CODE);
         else
             viewCatalog();
-}
+    }
 
 
     @Override
@@ -102,13 +110,12 @@ boolean threadRun = false;
 
         this.userTextView.setBackground(getUserColor());
 
-        if (getValue(Enable_Get_id).toUpperCase() == "TRUE")
-        this.userTextView.setText(getValue(UID));
+        if (getValue(Enable_Get_id).toUpperCase().compareTo("TRUE") == 0)
+            this.userTextView.setText(getValue(UID));
+        else
+            this.userTextView.setText(null);
 
         this.playButton.setEnabled(true);
-
-
-
     }
 
     @Override

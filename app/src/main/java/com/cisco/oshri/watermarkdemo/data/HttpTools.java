@@ -220,8 +220,8 @@ public class HttpTools {
     }
 
 
-    public static int uploadFileToServer(String url,  File sourceFile,String fileName) {
-        String upLoadServerUri = url;
+    public static int uploadFileToServer(String upLoadServerUri,  File sourceFile,String fileName) {
+       /// String upLoadServerUri = url;
         // String [] string = sourceFileUri;
 
         HttpURLConnection conn = null;
@@ -272,6 +272,7 @@ public class HttpTools {
                 bytesAvailable = fileInputStream.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                Log.i("Upload file to server","bytesAvailable " + bytesAvailable +" byteRead: "+bytesRead + " bufferSize: "+bufferSize );
             }
 
             // send multipart form data necesssary after file data...

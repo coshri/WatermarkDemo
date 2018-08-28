@@ -21,10 +21,12 @@
         android:textSize="24sp" />
 
     <LinearLayout
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save" />
@@ -35,6 +37,7 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel" />
@@ -46,42 +49,30 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
-
-            <?xml version="1.0" encoding="utf-8"?>
-
-
-
 
             <CheckBox
                 android:id="@+id/showUidCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:button="@drawable/check_box_selector"
-                android:textColor="#FF000000"
                 android:textSize="25dp"
-                android:text="show uid" />
+                android:text="@string/show_uid" />
 
 
             <CheckBox
-                android:id="@+id/autoStartPlaycheckBox"
+                android:id="@+id/autoStartPlayCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:button="@drawable/check_box_selector"
-                android:textColor="#FF000000"
                 android:textSize="25dp"
                 android:text="@string/auto_start_play" />
 
 
             <!--public static final String CONTROL_PLAN_URL = "control plane url";-->
             <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

@@ -17,6 +17,7 @@
 
     <string name="auto_start_play">auto start play</string>
     <string name="auto_play_url">auto play url</string>
+    <string name="show_uid">show uid</string>
 
     <!--public static final String RECORDING_FOLDER ="recording folder";-->
 
