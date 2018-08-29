@@ -2,6 +2,7 @@ package com.cisco.oshri.watermarkdemo;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,7 +55,16 @@ public class SignInActivity extends AppCompatActivity {
                 new signInAsync().execute(user);
             }
         });
+
+       showDialog();
     }
+
+
+    void showDialog() {
+        DialogFragment newFragment = new UploadFragmentDialog();
+        newFragment.show(getSupportFragmentManager(), "dialog");
+    }
+
 
     @Override
     public void onBackPressed() {
