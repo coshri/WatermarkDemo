@@ -7,9 +7,11 @@
         <item
             android:id="@+id/uploadVideo"
             android:icon="@android:drawable/ic_menu_upload"
-            android:title="upload video" />
-
+            android:title="Upload record" />
+        <!--<item-->
+            <!--android:id="@+id/removeAllRecords"-->
+            <!--android:icon="@android:drawable/ic_menu_upload"-->
+            <!--android:title="Remove all records" />-->
     </group>
-
 
 </menu>

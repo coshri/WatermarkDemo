@@ -50,7 +50,7 @@ public class SettingsData {
         setValue(AUTO_PLAY_URL, "http://192.168.1.100:8080/watch?uname=");
         setValue(GET_ID_URL, "http://192.168.1.100:8080/getid?uname=");
         setValue(Enable_Get_id, "false");
-        setValue(Enable_AUTO_PLAY, "true");
+        setValue(Enable_AUTO_PLAY, "false");
 
     }
 

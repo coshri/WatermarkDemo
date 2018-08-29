@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cisco.oshri.watermarkdemo.data.HttpTools;
 import com.cisco.oshri.watermarkdemo.data.SettingsData;
@@ -39,36 +40,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
-        if(getValue(USER) != null)
-        {
+        if (getValue(USER) != null) {
             if (getValue(Enable_Get_id).toUpperCase().compareTo("TRUE") == 0)
                 this.userTextView.setText(getValue(UID));
             else
                 this.userTextView.setText(null);
-        }
+            
+            if (getValue(Enable_AUTO_PLAY).toUpperCase() == "TRUE") {
+                threadRun = true;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            String response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
 
-        if (getValue(Enable_AUTO_PLAY).toUpperCase() == "TRUE") {
-            threadRun = true;
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        String response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
+                            while (response.compareTo("watch") != 0 && threadRun == true) {
+                                sleep(3000);
+                                response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
+                            }
 
-                        while (response.compareTo("watch") != 0 && threadRun == true) {
-                            sleep(3000);
-                            response = HttpTools.GET(getValue(AUTO_PLAY_URL) + getValue(USER));
+                            if (response.compareTo("watch") == 0)
+                                openPlayer();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
 
-                        if (response.compareTo("watch") == 0)
-                            openPlayer();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-
-                }
-            }.start();
+                }.start();
+            }
         }
     }
 
@@ -134,9 +134,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void signOut() {
-
         SettingsData.setValue(USER, null);
         SettingsData.setValue(CATALOG_URL, null);
+        SettingsData.setValue(UID, null);
         threadRun = false;
         startActivityForResult(new Intent(this, SignInActivity.class), REQ_SIGNIN_CODE);
     }

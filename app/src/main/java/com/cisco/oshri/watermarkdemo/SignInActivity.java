@@ -55,15 +55,10 @@ public class SignInActivity extends AppCompatActivity {
                 new signInAsync().execute(user);
             }
         });
-
-       showDialog();
     }
 
 
-    void showDialog() {
-        DialogFragment newFragment = new UploadFragmentDialog();
-        newFragment.show(getSupportFragmentManager(), "dialog");
-    }
+
 
 
     @Override
@@ -102,9 +97,11 @@ public class SignInActivity extends AppCompatActivity {
                     setValue(USER,user);
                 }
 
-                String uidResult = HttpTools.GET(getValue(GET_ID_URL)+user);
-                setValue(UID,uidResult);
-
+                if (getValue(Enable_Get_id).toUpperCase().compareTo("TRUE") == 0)
+                {
+                    String uidResult = HttpTools.GET(getValue(GET_ID_URL)+user);
+                    setValue(UID,uidResult);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
