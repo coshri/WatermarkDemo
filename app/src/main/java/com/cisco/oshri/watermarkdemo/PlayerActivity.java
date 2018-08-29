@@ -96,23 +96,23 @@ public class PlayerActivity extends AppCompatActivity
         playerView = findViewById(R.id.player_view);
         userNameTextView = findViewById(R.id.userNameTextView);
         uploadProgressBar = findViewById(R.id.upoloadProgressBar);
-uploadFloatingActionButton = findViewById(R.id.uploadFloatingActionButton);
-uploadFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        ///////////////////////////////////
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            } else {
-                // Permission has already been granted
-                showUploadDialog();// getLastFile();
-            }
-        } else
-            showUploadDialog();// getLastFile();
-////////////////////////////////////
-    }
-});
+//uploadFloatingActionButton = findViewById(R.id.uploadFloatingActionButton);
+//uploadFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View view) {
+//        ///////////////////////////////////
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//            } else {
+//                // Permission has already been granted
+//                showUploadDialog();// getLastFile();
+//            }
+//        } else
+//            showUploadDialog();// getLastFile();
+//////////////////////////////////////
+//    }
+//});
 
 
     }

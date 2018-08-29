@@ -19,21 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/uploadFloatingActionButton"
-        android:layout_width="76dp"
-        android:layout_height="70dp"
-        android:layout_gravity="end|bottom"
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/uploadFloatingActionButton"-->
+        <!--android:layout_width="76dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:layout_gravity="end|bottom"-->
 
-        android:layout_margin="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:src="@android:drawable/ic_menu_upload"
-        app:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!--android:layout_margin="16dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:src="@android:drawable/ic_menu_upload"-->
+        <!--app:backgroundTint="@android:color/darker_gray"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 
     <ImageButton
