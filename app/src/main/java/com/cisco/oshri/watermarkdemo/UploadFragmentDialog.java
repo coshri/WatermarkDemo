@@ -319,21 +319,31 @@ public class UploadFragmentDialog extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            statusUploadTextView.setText("Upload Complete");
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getDialog().cancel();
-                    //uploadProgressBar.setVisibility(View.INVISIBLE);
-                }
-            }, 5000);
+            if(getDialog()!=null)
+            {
+                statusUploadTextView.setText("Upload Complete");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(getDialog()!=null && getDialog().isShowing())
+                        getDialog().cancel();
+                        //uploadProgressBar.setVisibility(View.INVISIBLE);
+                    }
+                }, 5000);
+            }
+
         }
 
         @Override
         protected void onProgressUpdate(Object... values) {
             super.onProgressUpdate(values);
-            uploadProgressBar.setProgress((int) values[0]);
-            statusUploadTextView.setText(values[1].toString());
+
+            if(getDialog()!=null && getDialog().isShowing())
+            {
+                uploadProgressBar.setProgress((int) values[0]);
+                statusUploadTextView.setText(values[1].toString());
+            }
+
         }
 
         @Override
